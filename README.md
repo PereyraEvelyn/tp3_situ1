@@ -1,93 +1,33 @@
-# Trabajo_Practico3_289
+# TRABAJO PRACTICO N3
 
+## Situación 1: Sistema de Gestión Educativa
+Sistema de gestión para una institución educativa que permita administrar la información relacionada con los cursos, los alumnos y los profesores:
 
+Gestión de Cursos: Registrar información básica de cada curso (nombre, horario, capacidad máxima) y asignarle un profesor responsable.
+Mantener un registro de los alumnos, identificados por su dni
+Gestión de Profesores: identificados por su número de legajo.
+Inscripción de Alumnos en Cursos: Permitir a los alumnos inscribirse en los cursos, validando que no excedan la capacidad máxima y que no estén ya inscritos en el mismo curso.
+Permitir registrar y actualizar la calificación de los alumnos para cada curso en el que están inscritos.
+Generación de Resúmenes de Curso: Proporcionar una visión general de cada curso, incluyendo el profesor, el horario, la cantidad de alumnos inscritos y la lista de alumnos con su número de documento.
 
-## Getting started
+## Breve Explicación del Diseño de las Clases y sus Interacciones:
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+El diseño del sistema se basa en cuatro clases principales que representan las entidades del dominio: Curso, Alumno, Profesor e Inscripcion.
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+Curso: Representa un curso ofrecido por la institución. Tiene atributos como nombre, horario y capacidadMaxima. Su principal responsabilidad es gestionar la inscripción de alumnos (inscribirAlumno), verificar si un alumno está inscrito (estaInscrito), actualizar la calificación de un alumno en el curso (actualizarCalificacion) y generar un resumen de la información del curso y sus alumnos inscritos (imprimirResumen). Mantiene una lista de objetos Inscripcion para rastrear a los alumnos inscritos. Tiene una relación de asociación con Profesor (un profesor dicta un curso).
 
-## Add your files
+Alumno: Representa a un estudiante. Tiene atributos como dni (identificador único) y nombre. Su responsabilidad principal es almacenar la información del alumno. Los métodos equals() y hashCode() están sobrescritos para permitir la comparación de alumnos basada en su dni, lo cual es crucial para verificar inscripciones duplicadas.
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/topics/git/add_files/#add-files-to-a-git-repository) or push an existing Git repository with the following command:
+Profesor: Representa a un miembro del profesorado. Tiene atributos como numeroLegajo (identificador único) y nombre. Su responsabilidad principal es almacenar la información del profesor. Tiene una relación de asociación con Curso (un profesor puede dictar múltiples cursos).
 
-```
-cd existing_repo
-git remote add origin https://gitlab.com/EvelynMPereyra/trabajo_practico3_289.git
-git branch -M main
-git push -uf origin main
-```
+Inscripcion: Representa la relación entre un Alumno y un Curso. Actúa como una clase asociativa para almacenar información específica de la inscripción, como la calificacion del alumno en ese curso. Cada objeto Inscripcion vincula un Alumno con un Curso.
 
-## Integrate with your tools
+Interacciones entre las Clases:
 
-- [ ] [Set up project integrations](https://gitlab.com/EvelynMPereyra/trabajo_practico3_289/-/settings/integrations)
-
-## Collaborate with your team
-
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Set auto-merge](https://docs.gitlab.com/user/project/merge_requests/auto_merge/)
-
-## Test and Deploy
-
-Use the built-in continuous integration in GitLab.
-
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
-
-***
-
-# Editing this README
-
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
-
-## Suggestions for a good README
-
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
-
-## Name
-Choose a self-explaining name for your project.
-
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
-
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
-
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
-
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
-
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
-
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
-
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
-
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
-
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
-
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
-
-## License
-For open source projects, say how it is licensed.
-
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+Un objeto Curso mantiene una colección de objetos Inscripcion, lo que le permite saber qué alumnos están inscritos en él y sus calificaciones.
+La inscripción de un Alumno en un Curso resulta en la creación de un nuevo objeto Inscripcion que vincula a ese Alumno y ese Curso.
+La clase Curso interactúa con la clase Alumno para verificar si un alumno ya está inscrito antes de permitir una nueva inscripción. Utiliza el método equals() de la clase Alumno para esta verificación.
+La actualización de la calificación de un alumno en un curso implica buscar la instancia de Inscripcion correspondiente y modificar su atributo calificacion.
+Al generar el resumen del curso, la clase Curso itera a través de su colección de Inscripciones para acceder a la información de los Alumnos inscritos (a través de la referencia al objeto Alumno en cada Inscripcion).
+La asignación de un profesor a un curso se realiza mediante una relación de asociación unidireccional desde Curso hacia Profesor.
+El uso de una clase Inscripcion para la relación muchos-a-muchos entre Alumno y Curso permite almacenar información adicional sobre la relación (como la calificación).
