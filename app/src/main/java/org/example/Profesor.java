@@ -1,23 +1,21 @@
 package org.example;
-public class Profesor {
+public class Profesor implements ParticipanteCurso {
+    private Persona persona;
     private String numeroLegajo;
-    private String nombre;
 
-    public Profesor(String numeroLegajo, String nombre) {
+    public Profesor(String numeroLegajo, Persona persona) {
         this.numeroLegajo = numeroLegajo;
-        this.nombre = nombre;
+        this.persona = persona;
     }
 
     public String getNumeroLegajo() {
         return numeroLegajo;
     }
 
-    public String getNombre() {
-        return nombre;
-    }
 
-    public void setNombre(String nombre) {
-            this.nombre = nombre;
+    @Override
+    public void realizarActividad(String actividad){
+        System.out.println("El profesor" +persona.getNombre() + " esta realizando la actividad");
     }
     
     @Override
