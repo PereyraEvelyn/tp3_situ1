@@ -4,11 +4,34 @@
 package org.example;
 
 public class App {
-    public String getGreeting() {
-        return "Hello World!";
-    }
-
+   
     public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
+        Profesor profesor1 = new Profesor("LP001", "Ana Perez");
+        Profesor profesor2 = new Profesor("LP002", "Juan Gomez");
+
+        Curso curso1 = new Curso("Matematicas I", "Lunes y Miercoles 9:00 - 11:00", 2); // Capacidad de 2 para probar
+        curso1.asignarProfesor(profesor1);
+
+        Curso curso2 = new Curso("Programacion Basica", "Martes y Jueves 14:00 - 16:00", 30);
+        curso2.asignarProfesor(profesor2);
+
+        Alumno alumno1 = new Alumno("12345678", "Carlos Lopez");
+        Alumno alumno2 = new Alumno("87654321", "Maria Rodriguez");
+        Alumno alumno3 = new Alumno("11223344", "Pedro Fernandez");
+        Alumno alumno4 = new Alumno("12345678", "Carlos Lopez"); // Mismo número de documento
+
+        curso1.inscribirAlumno(alumno1);
+        curso1.inscribirAlumno(alumno2);
+        curso1.inscribirAlumno(alumno3); // No se inscribe porque supera la capacidad máxima del curso
+
+        curso2.inscribirAlumno(alumno1);
+        curso2.inscribirAlumno(alumno4); // ya inscrito 
+
+        curso1.actualizarCalificacion(alumno1, 8.5);
+        curso2.actualizarCalificacion(alumno1, 7.0);
+        curso1.actualizarCalificacion(alumno3, 9.0); // No se actualiza porque no está inscrito
+
+        curso1.imprimirResumen();
+        curso2.imprimirResumen();
     }
 }
