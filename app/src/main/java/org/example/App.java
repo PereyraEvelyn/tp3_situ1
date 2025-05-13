@@ -6,32 +6,47 @@ package org.example;
 public class App {
    
     public static void main(String[] args) {
-        Profesor profesor1 = new Profesor("LP001", "Ana Perez");
-        Profesor profesor2 = new Profesor("LP002", "Juan Gomez");
+     // Crear personas
+        Persona persona1 = new Persona("Juan Pérez", 34222111);
+        Persona persona2 = new Persona("María García", 28999000);
+        Persona persona3 = new Persona("Carlos Rodríguez", 41555222);
+        Persona persona4 = new Persona("Ana Martínez", 39888777);
 
-        Curso curso1 = new Curso("Matematicas I", "Lunes y Miercoles 9:00 - 11:00", 2); // Capacidad de 2 para probar
-        curso1.asignarProfesor(profesor1);
+        // Crear profesores
+        Profesor profesor1 = new Profesor("LP001", persona1);
+        Profesor profesor2 = new Profesor("LP002", persona2);
 
-        Curso curso2 = new Curso("Programacion Basica", "Martes y Jueves 14:00 - 16:00", 30);
-        curso2.asignarProfesor(profesor2);
+        // Crear alumnos
+        Alumno alumno1 = new Alumno(persona3);
+        Alumno alumno2 = new Alumno(persona4);
 
-        Alumno alumno1 = new Alumno("12345678", "Carlos Lopez");
-        Alumno alumno2 = new Alumno("87654321", "Maria Rodriguez");
-        Alumno alumno3 = new Alumno("11223344", "Pedro Fernandez");
-        Alumno alumno4 = new Alumno("12345678", "Carlos Lopez"); // Mismo número de documento
+        // Crear asistentes
+        Asistente asistente1 = new Asistente(persona4); // Ana Martínez será asistente
 
-        curso1.inscribirAlumno(alumno1);
-        curso1.inscribirAlumno(alumno2);
-        curso1.inscribirAlumno(alumno3); // No se inscribe porque supera la capacidad máxima del curso
+        // Crear un curso con un profesor y un asistente
+        RegistroParticipantes registro1 = new RegistroParticipantes("Programacion I", "Martes 18-21hs");
+        Curso curso1 = new Curso("Programacion I", "Martes 18-21hs", 30, registro1);
+        curso1.setProfesorACargo(profesor1); // Juan Pérez dictará el curso
+        curso1.setAsistenteACargo(asistente1); // Ana Martínez será la asistente
 
-        curso2.inscribirAlumno(alumno1);
-        curso2.inscribirAlumno(alumno4); // ya inscrito 
+        // Inscribir alumnos en el curso
+        curso1.inscribirAlumno(alumno1); // Carlos Rodríguez se inscribe
+        curso1.inscribirAlumno(alumno2); // Ana Martínez se inscribe como alumna (¡puede ser asistente y alumna!)
 
-        curso1.actualizarCalificacion(alumno1, 8.5);
-        curso2.actualizarCalificacion(alumno1, 7.0);
-        curso1.actualizarCalificacion(alumno3, 9.0); // No se actualiza porque no está inscrito
 
+       //mostrar los datos del curso
         curso1.imprimirResumen();
+
+        // Crear otro curso con otro profesor
+        RegistroParticipantes registro2 = new RegistroParticipantes("Matemática II", "Jueves 10-13hs");
+        Curso curso2 = new Curso("Matemática II", "Jueves 10-13hs", 20, registro2);
+        curso2.setProfesorACargo(profesor2); // María García dictará el curso
+
+        //Un profesor puede ser alumno de otro curso
+        curso2.inscribirAlumno(profesor1); // Juan Pérez se inscribe en Matemática II
+
+
+        // Mostrar los datos del curso
         curso2.imprimirResumen();
     }
 }

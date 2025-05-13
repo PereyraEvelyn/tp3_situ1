@@ -14,10 +14,11 @@ public class Profesor implements ParticipanteCurso {
 
 
     @Override
-    public void realizarActividad(String actividad){
-        System.out.println("El profesor" +persona.getNombre() + " esta realizando la actividad");
+    public void imprimirDatos(){
+        system.out.println("Profesor: "+ persona.getNombre()+ "numero de Legajo: " + persona.getNumeroLegajo());
     }
-    
+
+
     @Override
     public boolean equals(Object obj){
         if(this == obj){ 
