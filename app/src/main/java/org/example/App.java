@@ -6,8 +6,8 @@ package org.example;
 public class App {
    
     public static void main(String[] args) {
-        Profesor profesor1 = new Profesor("LP001", "Ana Perez");
-        Profesor profesor2 = new Profesor("LP002", "Juan Gomez");
+        Profesor profesor1 = new Profesor("A120", "Ana Perez");
+        Profesor profesor2 = new Profesor("B340", "Juan Perez");
 
         Curso curso1 = new Curso("Matematicas I", "Lunes y Miercoles 9:00 - 11:00", 2); // Capacidad de 2 para probar
         curso1.asignarProfesor(profesor1);

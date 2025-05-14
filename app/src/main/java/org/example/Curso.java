@@ -20,16 +20,8 @@ public class Curso {
         return nombre;
     }
 
-    public void setNombre(String nombre) {
-            this.nombre = nombre;
-    }
-
     public String getHorario() {
         return horario;
-    }
-
-    public void setHorario(String horario) {
-        this.horario = horario;
     }
 
     public int getCapacidadMaxima() {
@@ -63,7 +55,6 @@ public class Curso {
         }
     }
 
-    //Verificar si un alumno está inscrito
     public boolean estaInscrito(Alumno alumno) {
         for (Inscripcion inscripcion : inscripciones) {
             if (inscripcion.getAlumno().equals(alumno)) {
@@ -73,7 +64,6 @@ public class Curso {
         return false;
     }
 
-    //Actualizar la calificación de un alumno en este curso
     public boolean actualizarCalificacion(Alumno alumno, double calificacion) {
         for (Inscripcion inscripcion : inscripciones) {
             if (inscripcion.getAlumno().equals(alumno)) {
@@ -86,20 +76,15 @@ public class Curso {
         return false;
     }
 
-    //Generar un resumen del curso
     public void imprimirResumen() {
         System.out.println("\n--- Resumen del Curso: " + nombre + " ---");
-        System.out.println("Profesor a cargo: " + (profesorACargo != null ? profesorACargo.getNombre() : "Sin asignar"));
+        System.out.println("Profesor a cargo: " + profesorACargo.getNombre());
         System.out.println("Horario: " + horario);
         System.out.println("Cantidad de alumnos inscritos: " + inscripciones.size());
-        if (!inscripciones.isEmpty()) {
             System.out.println("\nAlumnos inscritos:");
             for (Inscripcion inscripcion : inscripciones) {
                 System.out.println("- " + inscripcion.getAlumno().getNombre() + " (Documento: " + inscripcion.getAlumno().getNumeroDocumento() + ")");
             }
-        } else {
-            System.out.println("No hay alumnos inscritos en este curso.");
-        }
         System.out.println("---------------------------------------\n");
     }
 }

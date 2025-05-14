@@ -10,7 +10,6 @@ public class Alumno {
         this.nombre = nombre;
     }
 
-    // Getters y setters
     public String getNumeroDocumento() {
         return numeroDocumento;
     }
@@ -19,11 +18,6 @@ public class Alumno {
         return nombre;
     }
 
-    public void setNombre(String nombre) {
-        if (nombre != null && !nombre.trim().isEmpty()) {
-            this.nombre = nombre;
-        }
-    }
 
     @Override
     public boolean equals(Object obj) {
@@ -37,8 +31,4 @@ public class Alumno {
         return numeroDocumento.equals(alumno.numeroDocumento);
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(numeroDocumento);
-    }
 }
