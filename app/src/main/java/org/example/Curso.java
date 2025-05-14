@@ -42,7 +42,7 @@ public class Curso {
 
     public boolean inscribirAlumno(Alumno alumno) {
         if (inscripciones.size() < capacidadMaxima && !estaInscrito(alumno)) {
-            Inscripcion nuevaInscripcion = new Inscripcion(alumno, this);
+            Inscripcion nuevaInscripcion = new Inscripcion("A123",alumno, this);
             inscripciones.add(nuevaInscripcion);
             System.out.println("Alumno " + alumno.getNombre() + " inscrito en el curso " + nombre);
             return true;

@@ -1,10 +1,12 @@
 package org.example;
 public class Inscripcion {
+    private String CodigoInscripcion;
     private Alumno alumno;
     private Curso curso;
     private double calificacion;
 
-    public Inscripcion(Alumno alumno, Curso curso) {
+    public Inscripcion(String codIns, Alumno alumno, Curso curso) {
+        this.CodigoInscripcion = codIns;
         this.alumno = alumno;
         this.curso = curso;
         this.calificacion = 0; 
@@ -16,6 +18,10 @@ public class Inscripcion {
 
     public Curso getCurso() {
         return curso;
+    }
+
+    public String getCodigoInscripcion(){
+        return CodigoInscripcion;
     }
 
     public double getCalificacion() {
