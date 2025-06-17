@@ -5,9 +5,12 @@ Sistema de gestión para una institución educativa que permita administrar la i
 
 Gestión de Cursos: Registrar información básica de cada curso (nombre, horario, capacidad máxima) y asignarle un profesor responsable.
 Mantener un registro de los alumnos, identificados por su dni
+
 Gestión de Profesores: identificados por su número de legajo.
+
 Inscripción de Alumnos en Cursos: Permitir a los alumnos inscribirse en los cursos, validando que no excedan la capacidad máxima y que no estén ya inscritos en el mismo curso.
 Permitir registrar y actualizar la calificación de los alumnos para cada curso en el que están inscritos.
+
 Resúmen de Curso: Mostrar una visión general de cada curso, incluyendo el profesor, el horario, la cantidad de alumnos inscritos y la lista de alumnos con su número de documento.
 
 ## Diseño de las Clases y sus Interacciones:
