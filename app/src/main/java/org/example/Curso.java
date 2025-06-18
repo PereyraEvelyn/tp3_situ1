@@ -1,116 +1,88 @@
 package org.example;
-import java.util.ArrayList;
-import java.util.List;
 
+import java.util.Set;
+import java.util.TreeSet;
+import java.util.Iterator;
 
 public class Curso {
     private String nombre;
     private String horario;
     private int capacidadMaxima;
     private Profesor profesorACargo;
-    private Asistente asistente; 
-    private List<Inscripcion> inscripciones;
+    private Asistente asistente;
+    private Set<Inscripcion> inscripciones; // Reemplazi List por Set
 
     public Curso(String nombre, String horario, int capacidadMaxima) {
         this.nombre = nombre;
         this.horario = horario;
         this.capacidadMaxima = capacidadMaxima;
-        this.inscripciones = new ArrayList<>();
-        this.profesorACargo = null; 
-        this.asistente = null; 
+        this.inscripciones = new TreeSet<>(); 
+        this.profesorACargo = null;
+        this.asistente = null;
     }
 
-
-    public void asignarProfesor(Profesor profesor) {
-        this.profesorACargo = profesor;
+    public void asignarProfesor(Profesor profesor) { 
+        this.profesorACargo = profesor; 
     }
-    
-    public void asignarAsistente(Asistente asistente) {
-        this.asistente = asistente;
+    public void asignarAsistente(Asistente asistente) { 
+        this.asistente = asistente; 
     }
 
-    
-    public boolean inscribirPersona(Persona persona) {
+    public void inscribirPersona(Persona persona) throws InscripcionException {
         if (inscripciones.size() >= capacidadMaxima) {
-            System.out.println("Error de inscripcion: El curso '" + nombre + "' ha alcanzado su capacidad maxima.");
-            return false;
+            throw new CursoCompletoException("El curso '" + nombre + "' ha alcanzado su capacidad maxima.");
         }
-        if (estaInscrito(persona)) {
-            System.out.println("Error de inscripcion: " + persona.getNombre() + " ya esta inscrito en este curso.");
-            return false;
+        if (persona.equals(this.profesorACargo) || persona.equals(this.asistente)) {
+            throw new ConflictoRolException(persona.getNombreCompleto() + " no puede inscribirse en un curso donde tiene un rol asignado.");
         }
-        if (persona.equals(this.profesorACargo)) {
-            System.out.println("Error de inscripcion: " + persona.getNombre() + " no puede inscribirse como alumno en un curso que dicta.");
-            return false;
-        }
-        if (persona.equals(this.asistente)) {
-             System.out.println("Error de inscripcion: " + persona.getNombre() + " no puede inscribirse como alumno en un curso donde es asistente.");
-            return false;
-        }
-
 
         String codInscripcion = "INS-" + this.nombre.charAt(0) + "-" + (inscripciones.size() + 1);
         Inscripcion nuevaInscripcion = new Inscripcion(codInscripcion, persona, this);
-        inscripciones.add(nuevaInscripcion);
-        System.out.println("Inscripcion exitosa: " + persona.getNombre() + " ahora es alumno del curso '" + nombre + "'.");
-        return true;
-    }
 
-    public boolean estaInscrito(Persona persona) {
-        for (Inscripcion inscripcion : inscripciones) {
-            if (inscripcion.getPersona().equals(persona)) {
-                return true;
-            }
+        if (!inscripciones.add(nuevaInscripcion)) {
+            throw new PersonaYaInscritaException(persona.getNombreCompleto() + " ya esta inscrito en este curso.");
         }
-        return false;
-    }
-
-    public boolean actualizarCalificacion(Persona persona, double calificacion) {
-        for (Inscripcion inscripcion : inscripciones) {
-            if (inscripcion.getPersona().equals(persona)) {
-                inscripcion.setCalificacion(calificacion);
-                System.out.println("Calificacion de " + persona.getNombre() + " en '" + nombre + "' actualizada a " + calificacion);
-                return true;
-            }
-        }
-        System.out.println("El participante " + persona.getNombre() + " no esta inscrito en este curso.");
-        return false;
-    }
-    
-   
-    public String getNombre() { 
-        return nombre;
-     }
-    public Profesor getProfesorACargo() {
-         return profesorACargo; 
-        }
-    public Asistente getAsistente() { 
-        return asistente; 
-    }
-    public List<Inscripcion> getInscripciones() {
-         return new ArrayList<>(inscripciones);
+        
+        System.out.println("Inscripcion exitosa: " + persona.getNombreCompleto() + " al curso '" + nombre + "'.");
     }
 
     public void imprimirResumen() {
         System.out.println("\n--- Resumen del Curso: " + nombre + " ---");
         System.out.println("Horario: " + horario);
         if (profesorACargo != null) {
-            System.out.println("Profesor a cargo: " + profesorACargo.getNombre());
+            System.out.println("Profesor a cargo: " + profesorACargo.getNombreCompleto());
         }
         if (asistente != null) {
-            System.out.println("Asistente del curso: " + asistente.getNombre());
+            System.out.println("Asistente del curso: " + asistente.getNombreCompleto());
         }
         System.out.println("Capacidad: " + inscripciones.size() + "/" + capacidadMaxima);
-        System.out.println("\nAlumnos inscritos:");
-        if (inscripciones.isEmpty()) {
+        System.out.println("\nAlumnos inscritos (Ordenados por Apellido y Nombre):");
+
+       
+        Iterator<Inscripcion> it = inscripciones.iterator(); // Uso de Iterator para recorrer la colección
+        if (!it.hasNext()) {
             System.out.println("(No hay alumnos inscritos)");
         } else {
-            for (Inscripcion inscripcion : inscripciones) {
+            while (it.hasNext()) {
+                Inscripcion inscripcion = it.next();
                 Persona p = inscripcion.getPersona();
-                String rol = p.getClass().getSimpleName(); 
-                System.out.println("- " + p.getNombre() + " (DNI: " + p.getNumeroDocumento() + ") - Rol: " + rol);
+                String rol = p.getClass().getSimpleName();
+                System.out.println("- " + p.getNombreCompleto() + " (DNI: " + p.getNumeroDocumento() + ") - Rol: " + rol);
             }
         }
         System.out.println("---------------------------------------\n");
+    }
+    
+    @Override
+    public int hashCode() {
+       return nombre.hashCode();
+    }
+    
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Curso c = (Curso) o;
+        return nombre.equals(c.nombre);
     }
 }

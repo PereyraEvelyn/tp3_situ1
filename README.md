@@ -1,20 +1,27 @@
-# TRABAJO PRACTICO N3
+# TRABAJO PRACTICO N°5
 ## Situación 1: Sistema de Gestión Educativa
 Sistema de gestión para una institución educativa que permita administrar la información relacionada con los cursos, los alumnos y los profesores:
 
-## Los nuevos requisitos son:
-
-Permitir que cada Curso pueda tener un asistente o auxiliar.
-Considerar que un Profesor pueda inscribirse como Alumno en otro curso.
-Considerar que un Alumno pueda ser Asistente en otro curso.
-
 ## Cambios
-¿Qué tienen en común un Profesor, un Alumno y un Asistente? Son todos Personas. Todos comparten atributos esenciales como un nombre y un número de documento/identificador.
+### Interfaces Comparable y Comparator:
+Se implementó la interfaz Comparable en la clase Persona y se diseñó la implementación de Comparator para Inscripcion.
 
-### Clase Abstracta Persona: Se crea para eliminar la duplicación de código y establecer un tipo común, .
+Comparable establece un orden natural para todos los objetos Persona (y por herencia, para Alumno, Profesor, etc.), permitiendo que las colecciones ordenadas, como TreeSet, los gestionen automáticamente.
 
-### Clase Asistente: Se crea esta nueva clase para representar el nuevo rol. Heredará de Persona para poder reutilizar los atributos y comportamientos comunes.
+Comparator proporciona la flexibilidad de definir criterios de ordenamiento alternativos y dinámicos.
 
-### Modificación en Curso: La clase Curso ahora tiene una nueva asociación para incorporar al Asistente.
+### Clases de Excepción Personalizadas:
 
-### Modificación en Inscripcion: Para permitir que cualquiera que sea una Persona pueda inscribirse, la clase Inscripcion ya no se asocia directamente con Alumno, sino con Persona.
+Agregado: Se creó una jerarquía de excepciones (InscripcionException, CursoCompletoException, etc.).
+En lugar de gestionar errores mediante mensajes en la consola, el sistema ahora utiliza un mecanismo de excepciones. 
+
+
+### Uso de Iterator:
+Se cambio el método imprimirResumen de la clase Curso para recorrer la colección de inscripciones utilizando la interfaz Iterator.
+
+Justificación del Reemplazo de la Colección (List por Set)
+Fortaleza: Una List mantiene el orden de inserción de los elementos pero
+permite elementos duplicados. Esto nos obligaba a implementar el método estaInscrito para recorrer la lista y verificar manualmente si un alumno ya estaba inscrito antes de agregarlo, lo que es ineficiente.
+Implementación Nueva (TreeSet):
+El método add() del Set automáticamente previene la inserción de un elemento duplicado. 
+ Un TreeSet es una implementación de SortedSet, lo que significa que mantiene los elementos permanentemente ordenados. nuestro TreeSet de inscripciones siempre estará ordenado alfabéticamente por el nombre del inscripto sin necesidad de realizar una ordenación manual antes de mostrar los datos.

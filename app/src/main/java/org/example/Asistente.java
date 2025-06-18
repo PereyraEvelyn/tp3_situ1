@@ -3,8 +3,8 @@ package org.example;
 public class Asistente extends Persona {
     private String codigoAsistente;
 
-    public Asistente(String numeroDocumento, String nombre, String codigoAsistente) {
-        super(numeroDocumento, nombre);
+    public Asistente(String numeroDocumento, String nombre, String apellido, String codigoAsistente) {
+        super(numeroDocumento, nombre, apellido);
         this.codigoAsistente = codigoAsistente;
     }
 
