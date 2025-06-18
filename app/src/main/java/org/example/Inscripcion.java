@@ -1,19 +1,21 @@
 package org.example;
+
 public class Inscripcion {
     private String CodigoInscripcion;
-    private Alumno alumno;
+    private Persona persona; 
     private Curso curso;
     private double calificacion;
 
-    public Inscripcion(String codIns, Alumno alumno, Curso curso) {
+    public Inscripcion(String codIns, Persona persona, Curso curso) {
         this.CodigoInscripcion = codIns;
-        this.alumno = alumno;
+        this.persona = persona;
         this.curso = curso;
         this.calificacion = 0; 
     }
 
-    public Alumno getAlumno() {
-        return alumno;
+ 
+    public Persona getPersona() {
+        return persona;
     }
 
     public Curso getCurso() {

@@ -1,31 +1,27 @@
 package org.example;
-public class Profesor {
-    private String numeroLegajo;
-    private String nombre;
 
-    public Profesor(String numeroLegajo, String nombre) {
+public class Profesor extends Persona {
+    private String numeroLegajo;
+
+    public Profesor(String numeroDocumento, String nombre, String numeroLegajo) {
+        super(numeroDocumento, nombre);
         this.numeroLegajo = numeroLegajo;
-        this.nombre = nombre;
     }
 
     public String getNumeroLegajo() {
         return numeroLegajo;
     }
-
-    public String getNombre() {
-        return nombre;
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (!(obj instanceof Profesor)) return false;
+        Profesor other = (Profesor) obj;
+        return super.equals(other) && numeroLegajo.equals(other.numeroLegajo);
     }
     
     @Override
-    public boolean equals(Object obj){
-        if(this == obj){ 
-            return true;
-        }
-        if(obj == null || getClass() !=obj.getClass()){ 
-            return false;
-        }
-        Profesor profesor = (Profesor) obj; 
-        return numeroLegajo.equals(profesor.numeroLegajo); 
+    public String toString() {
+        return "Profesor: " + nombre + " (Legajo: " + numeroLegajo + ", DNI: " + numeroDocumento + ")";
     }
-
 }

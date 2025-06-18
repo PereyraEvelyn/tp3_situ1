@@ -1,35 +1,34 @@
-
 package org.example;
+
 
 public class App {
    
     public static void main(String[] args) {
-        Profesor profesor1 = new Profesor("A120", "Ana Perez");
-        Profesor profesor2 = new Profesor("B340", "Juan Perez");
+        Profesor profAna = new Profesor("25111222", "Ana Gómez", "P-101");
+        Profesor profJuan = new Profesor("28333444", "Juan Torres", "P-102");
+        Alumno alumnoCarlos = new Alumno("40555666", "Carlos Ruiz");
+        Asistente asistenteLaura = new Asistente("38777888", "Laura Paez", "A-201");
 
-        Curso curso1 = new Curso("Matematicas I", "Lunes y Miercoles 9:00 - 11:00", 2); // Capacidad de 2 para probar
-        curso1.asignarProfesor(profesor1);
+        Curso cursoProgramacion = new Curso("Programacion Avanzada", "Lunes y Miercoles 18:00 - 20:00", 5);
+        cursoProgramacion.asignarProfesor(profAna);
+        cursoProgramacion.asignarAsistente(asistenteLaura);
 
-        Curso curso2 = new Curso("Programacion Basica", "Martes y Jueves 14:00 - 16:00", 30);
-        curso2.asignarProfesor(profesor2);
+        Curso cursoBD = new Curso("Bases de Datos", "Martes y Jueves 16:00 - 18:00", 3);
+        cursoBD.asignarProfesor(profJuan);
+;
 
-        Alumno alumno1 = new Alumno("12345678", "Carlos Lopez");
-        Alumno alumno2 = new Alumno("87654321", "Maria Rodriguez");
-        Alumno alumno3 = new Alumno("11223344", "Pedro Fernandez");
-        Alumno alumno4 = new Alumno("12345678", "Carlos Lopez"); // Mismo número de documento
+        cursoProgramacion.inscribirPersona(alumnoCarlos);
 
-        curso1.inscribirAlumno(alumno1);
-        curso1.inscribirAlumno(alumno2);
-        curso1.inscribirAlumno(alumno3); // No se inscribe porque supera la capacidad máxima del curso
+        cursoProgramacion.inscribirPersona(profJuan);
 
-        curso2.inscribirAlumno(alumno1);
-        curso2.inscribirAlumno(alumno4); // ya inscrito 
+        cursoBD.inscribirPersona(asistenteLaura);
 
-        curso1.actualizarCalificacion(alumno1, 8.5);
-        curso2.actualizarCalificacion(alumno1, 7.0);
-        curso1.actualizarCalificacion(alumno3, 9.0); // No se actualiza porque no está inscrito
+        cursoProgramacion.inscribirPersona(profAna);
 
-        curso1.imprimirResumen();
-        curso2.imprimirResumen();
+        cursoProgramacion.inscribirPersona(asistenteLaura);
+
+        // --- Imprimiendo Resúmenes Finales ---
+        cursoProgramacion.imprimirResumen();
+        cursoBD.imprimirResumen();
     }
 }
