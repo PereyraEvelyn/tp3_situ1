@@ -1,4 +1,4 @@
-# TRABAJO PRACTICO N°5
+# TRABAJO PRACTICO N°6
 ## Situación 1: Sistema de Gestión Educativa
 Sistema de gestión para una institución educativa que permita administrar la información relacionada con los cursos, los alumnos y los profesores:
 
